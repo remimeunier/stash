@@ -1,0 +1,18 @@
+<h2>Show Team</h2>
+
+<ul>
+
+  <li>
+    <strong>Token:</strong>
+    <%= @team.token %>
+  </li>
+
+  <li>
+    <strong>Provider:</strong>
+    <%= @team.user_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: team_path(@conn, :edit, @team) %></span>
+<span><%= link "Back", to: team_path(@conn, :index) %></span>
