@@ -4,7 +4,6 @@ defmodule StashIt.Web.TeamController do
   alias StashIt.Stash
   import StashIt.Accounts
   import Guardian.Plug
-  import StashIt.Stash.Fetch.FetchSlack
 
   def index(conn, params) do
     conn
@@ -25,7 +24,9 @@ defmodule StashIt.Web.TeamController do
         |> put_flash(:info, "Team created successfully.")
         |> redirect(to: team_path(conn, :show, team))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> assign(:test, changeset)
+        |> render("new.html", changeset: changeset)
     end
   end
 

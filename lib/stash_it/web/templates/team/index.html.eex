@@ -12,6 +12,7 @@
   <tbody>
 <%= for team <- @teams do %>
     <tr>
+      <td><%= team.name %></td>
       <td><%= team.token %></td>
       <td><%= team.provider %></td>
 

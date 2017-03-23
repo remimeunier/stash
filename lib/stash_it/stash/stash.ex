@@ -42,7 +42,7 @@ defmodule StashIt.Stash do
 
   defp team_changeset(%Team{} = team, attrs) do
     team
-    |> cast(attrs, [:token, :provider, :user_id, :valide])
-    |> validate_required([:token, :provider])
+    |> cast(attrs, [:token, :provider, :user_id, :valide, :name])
+    |> validate_required([:token, :provider, :name])
   end
 end

@@ -6,6 +6,7 @@ defmodule StashIt.Stash.Team do
     field :token, :string
     #field :user_id, :id
     field :valide, :boolean
+    field :name, :string
     belongs_to :user, StashIt.Accounts.User
 
     timestamps()

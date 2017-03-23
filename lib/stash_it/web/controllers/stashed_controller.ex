@@ -9,25 +9,37 @@ defmodule StashIt.Web.StashedController do
 
   #plug :authorize_resource, model: User, id_name: "user_id", persisted: true, only: :index, unauthorized_handler: {StashIt.HandleUnauthorized, :unauthorized}
 
-  def index(conn, %{"channel_id" => channel_id} = params) do
-  	user = @current_user
-  	channel_id = params["channel_id"]
-    conn
-    |> assign(:names, get_members)
-    |> assign(:messages, list_attachment(channel_id))
-    |> assign(:user, user)
-    |> assign(:list_channels, list_channels )
-    |> render("index.html")
-	end
-
   def index(conn, params) do
-    user = @current_user
     conn
-    |> assign(:names, get_members)
-    |> assign(:messages, nil)
-    |> assign(:user, user)
-    |> assign(:list_channels, list_channels )
+    |> assign(:teams, Stash.list_teams(current_resource(conn).id))
     |> render("index.html")
   end
+
+
+  def get(conn, %{"id" => team_id, "channel_id" => channel_id} = params) do
+    team = Stash.get_team!(team_id)
+  	channel_id = params["channel_id"]
+    conn
+    |> assign(:team_id, team.id)
+    |> assign(:names, get_members(team.token))
+    |> assign(:messages, list_attachment(team.token, channel_id))
+    |> assign(:list_channels, list_channels(team.token) )
+    |> render("show.html")
+	end
+
+  def get(conn, %{"id" => team_id} = params) do
+    team = Stash.get_team!(team_id)
+    conn
+    |> assign(:team_id, team.id)
+    |> assign(:names, get_members(team.token))
+    |> assign(:messages, nil)
+    |> assign(:list_channels, list_channels(team.token))
+    |> render("show.html")
+  end
+
+  # def show(conn, %{"id" => id}) do
+    # team = Stash.get_team!(id)
+    # render(conn, "show.html")
+  # end
 
 end

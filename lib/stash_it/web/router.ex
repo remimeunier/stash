@@ -38,6 +38,7 @@ defmodule StashIt.Web.Router do
       resources "/users", UserController, only: [:show]
       resources "/teams", TeamController
       get "/stashed", StashedController, :index
+      get "/stashed/:id", StashedController, :get
     end
   end
 

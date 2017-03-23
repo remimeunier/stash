@@ -8,7 +8,7 @@
 <p><%#= inspect @list_channels %></p>
 <ul class="nav nav-pills">
 <%= for channel <- @list_channels do %>
-	<li><%#= link channel[:name], to: stashed_path(@conn, :index, @current_user.id, channel_id: channel[:id]) %></li>
+	<li><%= link channel[:name], to: stashed_path(@conn, :get, @team_id, channel_id: channel[:id]) %></li>
 <% end %>
 </ul>
 <%= unless @messages == nil do  %>
