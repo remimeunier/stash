@@ -17,7 +17,7 @@ defmodule StashIt.Web.StashedController do
 
   def get(conn, %{"id" => team_id, "channel_id" => channel_id} = params) do
     team = Stash.get_team!(team_id)
-  	channel_id = params["channel_id"]
+    channel_id = params["channel_id"]
     conn
     |> assign(:team_id, team.id)
     |> assign(:names, Stash.get_members(team))

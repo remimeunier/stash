@@ -9,7 +9,7 @@
 <ul class="nav nav-pills">
 <%= for channel <- @list_channels do %>
 	<li>
-		<%= link channel.name, to: stashed_path(@conn, :get, @team_id, channel_id: channel.provider_id) %>
+		<%= link channel.name, to: stashed_path(@conn, :get, @team_id, channel_id: channel.id) %>
 	</li>
 <% end %>
 </ul>

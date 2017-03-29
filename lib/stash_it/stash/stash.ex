@@ -60,8 +60,6 @@ defmodule StashIt.Stash do
     |> Repo.all
   end
 
-  def find_channel()
-
   ############ Links ############
 
   def create_link(attrs \\ %{}) do
@@ -73,7 +71,7 @@ defmodule StashIt.Stash do
   def get_links(channel_id) do
     Repo.all from link in Link,
       join: channel in assoc(link, :channel),
-      where: channel.provider_id == ^channel_id
+      where: channel.id == ^channel_id
   end
 
  # def get_channels(team) do
