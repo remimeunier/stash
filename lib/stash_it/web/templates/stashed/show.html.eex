@@ -30,14 +30,14 @@
 <% end %>
 
 <%= unless @list_of_links == nil do  %>
-<h3> Links V.2 <%= length(@list_of_links) %> </h3>
+<h3> Links V.2 - numbers of links <%= length(@list_of_links) %> </h3>
 	<table class="table">
 		<%= for message <- @list_of_links do %>
 			<%= unless message == nil do %>
 				<tr>
 					<td> <%= message.link_service_name %> </td>
 					<td> <a href="<%= message.link %>"> <%= message.link_message %>  </td>
-					<td> <%= message.poster_id %></td>
+					<td> @<%= message.poster.name %></td>
 				<tr>
 			<% end %>
 		<% end %>
