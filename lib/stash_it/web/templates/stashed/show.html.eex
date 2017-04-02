@@ -1,29 +1,47 @@
 <h2> slack info <h2>
 <h3> Members </h3>
 <%= for name <- @names do %>
-	<span> <%= name["name"] %> </span>
+	<p> <%= name.real_name %> @<%= name.name %> #<%= name.provider_id %> </p>
 <% end %>
 
 <h3> Click a Channels </h3>
 <p><%#= inspect @list_channels %></p>
 <ul class="nav nav-pills">
 <%= for channel <- @list_channels do %>
-	<li><%= link channel[:name], to: stashed_path(@conn, :get, @team_id, channel_id: channel[:id]) %></li>
+	<li>
+		<%= link channel.name, to: stashed_path(@conn, :get, @team_id, channel_id: channel.provider_id) %>
+	</li>
 <% end %>
 </ul>
+<%#= inspect @messages %>
 <%= unless @messages == nil do  %>
-	<h3> Links </h3>
 	<table class="table">
-	<p><%#= inspect @messages %></p>
 		<%= for message <- generate_raws(@messages) do %>
 			<%= unless message == nil do %>
 				<tr>
 					<td> <%= message[:service] %> </td>
 					<td> <a href="<%= message[:url] %>"> <%= message[:name] %>  </td>
-					<td> <%= name_from_id(message[:poster], @names) %></td>
+					<td> <%#= name_from_id(message[:poster], @names) %></td>
 				<tr>
 			<% end %>
 		<% end %>
 
 	</table>
 <% end %>
+
+<%= unless @list_of_links == nil do  %>
+<h3> Links V.2 <%= length(@list_of_links) %> </h3>
+	<table class="table">
+		<%= for message <- @list_of_links do %>
+			<%= unless message == nil do %>
+				<tr>
+					<td> <%= message.link_service_name %> </td>
+					<td> <a href="<%= message.link %>"> <%= message.link_message %>  </td>
+					<td> <%= message.poster_id %></td>
+				<tr>
+			<% end %>
+		<% end %>
+
+	</table>
+<% end %>
+

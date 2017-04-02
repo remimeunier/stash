@@ -22,5 +22,4 @@ defmodule StashIt.Stash.Fetch.FetchSlack do
     end)
   end
 
-
 end

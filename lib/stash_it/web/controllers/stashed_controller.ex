@@ -1,11 +1,10 @@
 defmodule StashIt.Web.StashedController do
   use StashIt.Web, :controller
-  alias StashIt.Accounts.User
 
   alias StashIt.Stash
   import StashIt.Accounts
   import Guardian.Plug
-  import StashIt.Stash.Fetch.FetchSlack
+  alias StashIt.Stash.Fetch.FetchSlack
 
   #plug :authorize_resource, model: User, id_name: "user_id", persisted: true, only: :index, unauthorized_handler: {StashIt.HandleUnauthorized, :unauthorized}
 
@@ -21,19 +20,22 @@ defmodule StashIt.Web.StashedController do
   	channel_id = params["channel_id"]
     conn
     |> assign(:team_id, team.id)
-    |> assign(:names, get_members(team.token))
-    |> assign(:messages, list_attachment(team.token, channel_id))
-    |> assign(:list_channels, list_channels(team.token) )
+    |> assign(:names, Stash.get_members(team))
+    |> assign(:messages, FetchSlack.list_attachment(team.token, channel_id))
+    |> assign(:list_of_links, Stash.get_links(channel_id))
+    |> assign(:list_channels, Stash.get_channels(team) )
     |> render("show.html")
 	end
 
   def get(conn, %{"id" => team_id} = params) do
     team = Stash.get_team!(team_id)
+
     conn
     |> assign(:team_id, team.id)
-    |> assign(:names, get_members(team.token))
+    |> assign(:names, Stash.get_members(team))
     |> assign(:messages, nil)
-    |> assign(:list_channels, list_channels(team.token))
+    |> assign(:list_of_links, nil)
+    |> assign(:list_channels, Stash.get_channels(team))
     |> render("show.html")
   end
 

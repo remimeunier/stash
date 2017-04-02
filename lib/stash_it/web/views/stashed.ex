@@ -5,10 +5,10 @@ defmodule StashIt.Web.StashedView do
   	Enum.map(links, &get_attachments(&1))
 	end
 
-	def name_from_id(id, names) do
-		[a | b ] = Enum.filter(names, fn (x) -> x["id"] == id end)
-		a["name"]
-	end
+	# def name_from_id(id, names) do
+	# 	[a | b ] = Enum.filter(names, fn (x) -> x["id"] == id end)
+	# 	a["name"]
+	# end
 
   defp get_attachments(%{"user" => d, "attachments" => [%{"from_url" => a, "title" => b, "service_name" => c}, ]} = mess) do
     #Enum.map(@names, &get_attachments(&1))

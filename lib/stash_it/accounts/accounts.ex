@@ -32,7 +32,7 @@ defmodule StashIt.Accounts do
       user ->
         {:error, :unauthorized, conn}
       true ->
-        dummy_checkpw
+        dummy_checkpw()
         {:error, :not_found, conn}
     end
   end
@@ -40,27 +40,4 @@ defmodule StashIt.Accounts do
   def logout(conn) do
     Guardian.Plug.sign_out(conn)
   end
-
-  # def change_user(%User{} = user) do
-  #   user_changeset(user, %{})
-  # end
-
-  #def list_users do
-     #Repo.all(User)
-  # end
-
-  # def update_user(%User{} = user, attrs) do
-  #   user
-  #   |> user_changeset(attrs)
-  #   |> Repo.update()
-  # end
-
-  # def delete_user(%User{} = user) do
-  #   Repo.delete(user)
-  # end
-
-  # def change_user(%User{} = user) do
-  #   user_changeset(user, %{})
-  # end
-
 end

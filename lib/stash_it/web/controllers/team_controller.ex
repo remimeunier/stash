@@ -2,6 +2,7 @@ defmodule StashIt.Web.TeamController do
   use StashIt.Web, :controller
 
   alias StashIt.Stash
+  alias StashIt.Stash.Team
   import StashIt.Accounts
   import Guardian.Plug
 
@@ -13,13 +14,14 @@ defmodule StashIt.Web.TeamController do
 
 
   def new(conn, _params) do
-    changeset = Stash.change_team(%StashIt.Stash.Team{})
+    changeset = Team.change_team(%StashIt.Stash.Team{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"team" => team_params}) do
     case Stash.create_team(Map.put(team_params, "user_id", current_resource(conn).id)) do
       {:ok, team} ->
+        Stash.Fetch.InitSlack.init(team)
         conn
         |> put_flash(:info, "Team created successfully.")
         |> redirect(to: team_path(conn, :show, team))
@@ -37,7 +39,7 @@ defmodule StashIt.Web.TeamController do
 
   def edit(conn, %{"id" => id}) do
     team = Stash.get_team!(id)
-    changeset = Stash.change_team(team)
+    changeset = Team.change_team(team)
     render(conn, "edit.html", team: team, changeset: changeset)
   end
 
