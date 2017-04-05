@@ -70,6 +70,6 @@ defmodule StashIt.Stash.Fetch.InitSlack do
   end
 
   #Maybe TO DO handle one arg missing
-  defp get_link(a, b, c, d) do
+  defp get_link(_a, _b, _c, _d) do
   end
 end

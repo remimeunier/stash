@@ -14,8 +14,18 @@ defmodule StashIt.Web.StashedController do
     |> render("index.html")
   end
 
+  def all_from_team(conn, %{"team_id" => team_id} = params) do
+    team = Stash.get_team!(team_id)
+    conn
+    |> assign(:team_id, team.id)
+    |> assign(:names, Stash.get_members(team))
+    |> assign(:list_of_links, Stash.get_links_from_team(team.id))
+    |> assign(:list_channels, Stash.get_channels(team) )
+    |> render("show.html")
+  end
 
-  def get(conn, %{"id" => team_id, "channel_id" => channel_id} = params) do
+
+  def get_from_channel(conn, %{"team_id" => team_id, "channel_id" => channel_id} = params) do
     team = Stash.get_team!(team_id)
     channel_id = params["channel_id"]
     conn

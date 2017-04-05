@@ -72,7 +72,16 @@ defmodule StashIt.Stash do
     Repo.all from link in Link,
       join: channel in assoc(link, :channel),
       where: channel.id == ^channel_id,
-      preload: [:poster]
+      #order_by: [desc: link.created_at],
+      preload: [:poster, channel: channel]
+  end
+
+  def get_links_from_team(team_id) do
+    Repo.all from link in Link,
+      join: channel in assoc(link, :channel),
+      where: channel.team_id == ^team_id,
+      #order_by: [desc: link.created_at],
+      preload: [:poster, channel: channel]
   end
 
  # def get_channels(team) do

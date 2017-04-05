@@ -4,6 +4,6 @@
 <h3> Your available teams : <h3>
 <ul class="nav nav-pills">
 	<%= for team <- @teams do %>
-	<li><%= link team.name, to: stashed_path(@conn, :get, team.id) %></li>
+	<li><%#= link team.name, to: stashed_path(@conn, :get, team.id) %></li>
 <% end %>
 </ul>

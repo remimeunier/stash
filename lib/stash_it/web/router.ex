@@ -7,9 +7,11 @@ defmodule StashIt.Web.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug StashIt.Accounts.CurrentUser
   end
 
   pipeline :login_required do
+    plug StashIt.Accounts.CurrentUser
     plug Guardian.Plug.EnsureAuthenticated, handler: StashIt.Accounts.GuardianErrorHandler
   end
 
@@ -36,9 +38,20 @@ defmodule StashIt.Web.Router do
     scope "/" do
       pipe_through [:login_required]
       resources "/users", UserController, only: [:show]
-      resources "/teams", TeamController
-      get "/stashed", StashedController, :index
-      get "/stashed/:id", StashedController, :get
+      #resources "/teams", TeamController
+
+      get "/teams/:team_id", StashedController, :all_from_team
+      resources "/teams", TeamController, except: [:show] do
+        get "/channel/:channel_id", StashedController, :get_from_channel
+        get "/user/:user_id", StashedController, :get_from_user
+      end
+      # resources "/teams", TeamController
+      # get "/team/:team_id/channel/:channel_id", StashedController, :get_from_channem
+      # get "/team/:team_id/user/:user_id", StashedController, :get_from_channem
+
+       # get "/stashed", StashedController, :index
+       # get "/stashed/:id", StashedController, :get
+       # get "/stashed/:id/channel/:channel_id", StashedController, :get_via_channel
     end
   end
 
