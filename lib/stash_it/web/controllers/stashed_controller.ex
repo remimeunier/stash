@@ -27,27 +27,35 @@ defmodule StashIt.Web.StashedController do
 
   def get_from_channel(conn, %{"team_id" => team_id, "channel_id" => channel_id} = params) do
     team = Stash.get_team!(team_id)
-    channel_id = params["channel_id"]
     conn
     |> assign(:team_id, team.id)
     |> assign(:names, Stash.get_members(team))
-    |> assign(:messages, FetchSlack.list_attachment(team.token, channel_id))
-    |> assign(:list_of_links, Stash.get_links(channel_id))
+    |> assign(:list_of_links, Stash.get_links_from_channel(channel_id))
     |> assign(:list_channels, Stash.get_channels(team) )
     |> render("show.html")
 	end
 
-  def get(conn, %{"id" => team_id} = params) do
+  def get_from_user(conn, %{"team_id" => team_id, "user_id" => user_id} = params) do
     team = Stash.get_team!(team_id)
-
     conn
     |> assign(:team_id, team.id)
     |> assign(:names, Stash.get_members(team))
-    |> assign(:messages, nil)
-    |> assign(:list_of_links, nil)
-    |> assign(:list_channels, Stash.get_channels(team))
+    |> assign(:list_of_links, Stash.get_links_from_user(user_id))
+    |> assign(:list_channels, Stash.get_channels(team) )
     |> render("show.html")
   end
+
+  # def get(conn, %{"id" => team_id} = params) do
+  #   team = Stash.get_team!(team_id)
+
+  #   conn
+  #   |> assign(:team_id, team.id)
+  #   |> assign(:names, Stash.get_members(team))
+  #   |> assign(:messages, nil)
+  #   |> assign(:list_of_links, nil)
+  #   |> assign(:list_channels, Stash.get_channels(team))
+  #   |> render("show.html")
+  # end
 
   # def show(conn, %{"id" => id}) do
     # team = Stash.get_team!(id)

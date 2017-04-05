@@ -1,8 +1,9 @@
-<h2> slack info <h2>
 <h3> Members </h3>
+<ul class="nav nav-pills">
 <%= for name <- @names do %>
-	<p> <%= name.real_name %> @<%= name.name %> #<%= name.provider_id %> </p>
+	<li><%=link "@#{name.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, name.id) %></li>
 <% end %>
+</ul>
 
 <h3> Click a Channels </h3>
 <p><%#= inspect @list_channels %></p>
@@ -21,7 +22,7 @@
 				<tr>
 					<td> <%= message.link_service_name %> </td>
 					<td> <a href="<%= message.link %>"> <%= message.link_message %>  </td>
-					<td> @<%= message.poster.name %></td>
+					<td> <%=link "@#{message.poster.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, message.poster.id) %></td>
 				<tr>
 			<% end %>
 		<% end %>

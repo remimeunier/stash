@@ -68,7 +68,7 @@ defmodule StashIt.Stash do
     |> Repo.insert()
   end
 
-  def get_links(channel_id) do
+  def get_links_from_channel(channel_id) do
     Repo.all from link in Link,
       join: channel in assoc(link, :channel),
       where: channel.id == ^channel_id,
@@ -82,6 +82,14 @@ defmodule StashIt.Stash do
       where: channel.team_id == ^team_id,
       #order_by: [desc: link.created_at],
       preload: [:poster, channel: channel]
+  end
+
+  def get_links_from_user(user_id) do
+    Repo.all from link in Link,
+      join: user in assoc(link, :poster),
+      where: user.id == ^user_id,
+      #order_by: [desc: link.created_at],
+      preload: [:channel, poster: user]
   end
 
  # def get_channels(team) do
