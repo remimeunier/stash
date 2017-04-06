@@ -1,9 +1,0 @@
-<h2> Stash info <h2>
-<h3> User : <%= @current_user.id %> </h3>
-
-<h3> Your available teams : <h3>
-<ul class="nav nav-pills">
-	<%= for team <- @teams do %>
-	<li><%#= link team.name, to: stashed_path(@conn, :get, team.id) %></li>
-<% end %>
-</ul>

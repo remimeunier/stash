@@ -1,0 +1,34 @@
+<h2>Dashboard</h2>
+<h3> Your available teams : </h3>
+<ul class="nav nav-pills">
+  <%= for team <- @teams do %>
+    <%= if team.id == @team_id do %>
+      <li class='active'><%= link team.name, to: stashed_path(@conn, :all_from_team, team.id) %></li>
+    <% else %>
+      <li><%= link team.name, to: stashed_path(@conn, :all_from_team, team.id) %></li>
+    <% end %>
+  <% end %>
+  <li><%= link "Add a New Team ", to: team_path(@conn, :new) %></li>
+</ul>
+
+<h3> Members <%= @user_id %></h3>
+<ul class="nav nav-pills">
+<%= for name <- @names do %>
+  <%= if name.id == @user_id do %>
+    <li class='active'><%=link "@#{name.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, name.id) %></li>
+  <% else %>
+    <li><%=link "@#{name.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, name.id) %></li>
+  <% end %>
+<% end %>
+</ul>
+
+<h3> Click a Channels <%= @channel_id %></h3>
+<ul class="nav nav-pills">
+<%= for channel <- @list_channels do %>
+  <%= if channel.id == @channel_id do %>
+    <li class='active'><%= link channel.name, to: team_stashed_path(@conn, :get_from_channel, @team_id, channel.id) %></li>
+  <% else %>
+    <li><%= link channel.name, to: team_stashed_path(@conn, :get_from_channel, @team_id, channel.id) %></li>
+  <% end %>
+<% end %>
+</ul>

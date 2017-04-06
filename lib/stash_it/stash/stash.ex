@@ -9,9 +9,9 @@ defmodule StashIt.Stash do
 
   ############ teams ############
   def list_teams(user_id) do
-  Repo.all from t in Team,
-         join: user in assoc(t, :user),
-         where: user.id == ^user_id
+    Repo.all from t in Team,
+           join: user in assoc(t, :user),
+           where: user.id == ^user_id
   end
 
   def get_team!(id), do: Repo.get!(Team, id)

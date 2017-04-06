@@ -12,7 +12,7 @@ defmodule StashIt.Web.PageController do
     else
       #one team detect fo to stash controller
       id = Enum.at(teams, 0).id
-      redirect conn, to: "/teams/#{id}"
+      redirect conn, to: "/team/#{id}"
     end
   end
 

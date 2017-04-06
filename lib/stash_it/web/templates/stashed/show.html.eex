@@ -1,19 +1,4 @@
-<h3> Members </h3>
-<ul class="nav nav-pills">
-<%= for name <- @names do %>
-	<li><%=link "@#{name.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, name.id) %></li>
-<% end %>
-</ul>
-
-<h3> Click a Channels </h3>
-<p><%#= inspect @list_channels %></p>
-<ul class="nav nav-pills">
-<%= for channel <- @list_channels do %>
-	<li>
-		<%= link channel.name, to: team_stashed_path(@conn, :get_from_channel, @team_id, channel.id) %>
-	</li>
-<% end %>
-</ul>
+<%= render StashIt.Web.UserView, "dashboard.html", conn: @conn, teams: @teams, names: @names, list_channels: @list_channels, team_id: @team_id, channel_id: @channel_id, user_id: @user_id %>
 <%= unless @list_of_links == nil do  %>
 <h3> Links V.2 - numbers of links <%= length(@list_of_links) %> </h3>
 	<table class="table">
