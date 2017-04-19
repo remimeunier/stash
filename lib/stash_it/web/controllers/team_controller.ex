@@ -5,6 +5,13 @@ defmodule StashIt.Web.TeamController do
   alias StashIt.Stash.Team
   import StashIt.Accounts
   import Guardian.Plug
+  plug Ueberauth
+
+  alias Ueberauth.Strategy.Helpers
+
+  # def request(conn, _params) do
+  #   render(conn, "request.html", callback_url: Helpers.callback_url(conn))
+  # end
 
   def index(conn, params) do
     conn
@@ -12,10 +19,9 @@ defmodule StashIt.Web.TeamController do
     |> render("index.html")
   end
 
-
   def new(conn, _params) do
     changeset = Team.change_team(%StashIt.Stash.Team{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, callback_url: Helpers.callback_url(conn))
   end
 
   def create(conn, %{"team" => team_params}) do

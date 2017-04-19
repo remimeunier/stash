@@ -56,3 +56,8 @@ config :stash_it, StashIt.Repo,
   database: "stash_it2_dev",
   hostname: "localhost",
   pool_size: 10
+
+#
+config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
+  client_id: "113405365253.152461758768", #System.get_env("SLACK_CLIENT_ID"),
+  client_secret: "fcecdd04d7e0a059f6a927d08d6226a7" #System.get_env("SLACK_CLIENT_SECRET")

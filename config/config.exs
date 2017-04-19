@@ -31,7 +31,13 @@ config :guardian, Guardian,
   serializer: StashIt.Accounts.GuardianSerializer,
   secret_key: to_string(Mix.env) <> "SuPerseCret_aBraCadabrA"
 
+#Oath
+config :ueberauth, Ueberauth,
+  providers: [
+    slack: {Ueberauth.Strategy.Slack, [default_scope: "users:read,channels:history,identify,channels:read"]}
+  ]
 
+#canary
 config :canary,
  repo: StashIt.Repo
 
