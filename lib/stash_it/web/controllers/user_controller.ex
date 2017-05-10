@@ -17,7 +17,7 @@ defmodule StashIt.Web.UserController do
         conn
         |> StashIt.Accounts.login(user)
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: page_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

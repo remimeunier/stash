@@ -6,6 +6,7 @@ defmodule StashIt.Stash do
   alias StashIt.Stash.User
   alias StashIt.Stash.Channel
   alias StashIt.Stash.Link
+  require Logger
 
   ############ teams ############
   def list_teams(user_id) do
@@ -17,6 +18,7 @@ defmodule StashIt.Stash do
   def get_team!(id), do: Repo.get!(Team, id)
 
   def create_team(attrs \\ %{}) do
+    Logger.debug "Var value: #{inspect(attrs)}"
     %Team{}
     |> Team.team_changeset(attrs)
     |> Repo.insert()

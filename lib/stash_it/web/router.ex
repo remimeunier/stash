@@ -40,7 +40,8 @@ defmodule StashIt.Web.Router do
       resources "/users", UserController, only: [:show]
       #resources "/teams", TeamController
 
-
+      get "/auth/:provider", AuthController, :request
+      get "/auth/:provider/callback", AuthController, :callback
       resources "/teams", TeamController, except: [:show] do
         get "/channel/:channel_id", StashedController, :get_from_channel
         get "/user/:user_id", StashedController, :get_from_user

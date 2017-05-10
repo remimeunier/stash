@@ -18,7 +18,7 @@ defmodule StashIt.Mixfile do
   def application do
     [mod: {StashIt.Application, []},
      extra_applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                          :phoenix_ecto, :postgrex, :comeonin, :runtime_tools, :slack]]
+                          :phoenix_ecto, :postgrex, :comeonin, :runtime_tools, :slack, :ueberauth_slack]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,7 +41,8 @@ defmodule StashIt.Mixfile do
      {:guardian, "~> 0.12.0"},
      {:canada, "~> 1.0.1"},
      {:canary, "~> 1.1.0"},
-     {:slack, "~> 0.10.0"},]
+     {:slack, "~> 0.10.0"},
+     {:ueberauth_slack, "~> 0.4"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -8,6 +8,8 @@ defmodule StashIt.Repo.Migrations.CreateStashIt.Stash.Team do
       add :user_id, references(:accounts_users, on_delete: :nothing)
       add :valide, :boolean
       add :name, :string
+      add :provider_team_id, :string
+      add :provider_user_id, :string
 
       timestamps()
     end

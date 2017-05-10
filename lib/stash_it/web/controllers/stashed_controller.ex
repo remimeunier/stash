@@ -8,11 +8,6 @@ defmodule StashIt.Web.StashedController do
 
   #plug :authorize_resource, model: User, id_name: "user_id", persisted: true, only: :index, unauthorized_handler: {StashIt.HandleUnauthorized, :unauthorized}
 
-  # def index(conn, params) do
-  #   conn
-  #   |> assign(:teams, Stash.list_teams(current_resource(conn).id))
-  #   |> render("index.html")
-  # end
 
   def all_from_team(conn, %{"team_id" => team_id} = params) do
     team = Stash.get_team!(team_id)
