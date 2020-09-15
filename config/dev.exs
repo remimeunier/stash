@@ -59,5 +59,6 @@ config :stash_it, StashIt.Repo,
 
 #
 config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
-  client_id: System.get_env("SLACK_CLIENT_ID"),
-  client_secret: System.get_env("SLACK_CLIENT_SECRET")
+  client_id: "113405365253.152461758768", #System.get_env("SLACK_CLIENT_ID"),
+  client_secret: "fcecdd04d7e0a059f6a927d08d6226a7", #System.get_env("SLACK_CLIENT_SECRET")
+  token: "nMWPLNbD1dJDFcu8a8OHgqxj"

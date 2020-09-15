@@ -29,8 +29,8 @@ defmodule StashIt.Web.Router do
   end
 
   scope "/", StashIt.Web do
-    pipe_through [:browser, :with_session] # Use the default browser stack
 
+    pipe_through [:browser, :with_session] # Use the default browser stack
     get "/", PageController, :index
     resources "/users", UserController, only: [:new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
@@ -39,7 +39,6 @@ defmodule StashIt.Web.Router do
       pipe_through [:login_required]
       resources "/users", UserController, only: [:show]
       #resources "/teams", TeamController
-
       get "/auth/:provider", AuthController, :request
       get "/auth/:provider/callback", AuthController, :callback
       resources "/teams", TeamController, except: [:show] do
@@ -47,18 +46,12 @@ defmodule StashIt.Web.Router do
         get "/user/:user_id", StashedController, :get_from_user
       end
       get "/team/:team_id", StashedController, :all_from_team
-      # resources "/teams", TeamController
-      # get "/team/:team_id/channel/:channel_id", StashedController, :get_from_channem
-      # get "/team/:team_id/user/:user_id", StashedController, :get_from_channem
 
-       # get "/stashed", StashedController, :index
-       # get "/stashed/:id", StashedController, :get
-       # get "/stashed/:id/channel/:channel_id", StashedController, :get_via_channel
     end
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", StashIt.Web do
-  #   pipe_through :api
-  # end
+  scope "/api", StashIt.Web do
+    pipe_through :api
+    post "/slack/end-point", SlackEventController, :event
+  end
 end

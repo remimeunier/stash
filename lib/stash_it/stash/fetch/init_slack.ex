@@ -64,7 +64,7 @@ defmodule StashIt.Stash.Fetch.InitSlack do
                         link_message: attachment_text,
                         link_service_name: service_name,
                         text_message: message_text,
-                        time_stamp: time_stamp,
+                        time_stamp: time_stamp |> Integer.parse |> elem(0) |> Ecto.DateTime.from_unix!(:seconds) |> Ecto.DateTime.to_erl |> NaiveDateTime.from_erl!,
                         poster_id: Enum.filter_map(members, fn(x) -> x.provider_id == user_slack_id end, &(&1.id)) |> Enum.at(0), #Stash.get_member(team, user_slack_id).id,
                         channel_id: channel.id })
   end

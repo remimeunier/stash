@@ -8,7 +8,7 @@ defmodule StashIt.Repo.Migrations.CreateStashIt.Stash.Link do
       add :link_message, :string
       add :link_service_name, :string
       add :text_message, :string
-      add :time_stamp, :string
+      add :time_stamp, :naive_datetime
       add :poster_id, references(:stash_users, on_delete: :nothing)
       add :channel_id, references(:stash_channels, on_delete: :nothing)
       timestamps()

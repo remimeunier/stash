@@ -34,7 +34,7 @@ config :guardian, Guardian,
 #Oath
 config :ueberauth, Ueberauth,
   providers: [
-    slack: {Ueberauth.Strategy.Slack, [default_scope: "team:read,users:read,channels:history,identify,channels:read"]}
+    slack: {Ueberauth.Strategy.Slack, [default_scope: "team:read,users:read,channels:history,identify,channels:read,links:read"]}
   ]
 
 #canary

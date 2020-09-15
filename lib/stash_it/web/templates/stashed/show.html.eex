@@ -1,13 +1,14 @@
 <%= render StashIt.Web.UserView, "dashboard.html", conn: @conn, teams: @teams, names: @names, list_channels: @list_channels, team_id: @team_id, channel_id: @channel_id, user_id: @user_id %>
 <%= unless @list_of_links == nil do  %>
-<h3> Links V.2 - numbers of links <%= length(@list_of_links) %> </h3>
+<h3> Links - numbers of links <%= length(@list_of_links) %> </h3>
 	<table class="table">
-		<%= for message <- @list_of_links do %>
-			<%= unless message == nil do %>
+		<%= for link <- @list_of_links do %>
+			<%= unless link == nil do %>
 				<tr>
-					<td> <%= message.link_service_name %> </td>
-					<td> <a href="<%= message.link %>"> <%= message.link_message %>  </td>
-					<td> <%=link "@#{message.poster.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, message.poster.id) %></td>
+					<td> <%= link.link_service_name %> </td>
+					<td> <a href="<%= link.link %>"> <%= link.link_message %>  </td>
+					<td> <%=link "@#{link.poster.name}", to: team_stashed_path(@conn, :get_from_user, @team_id, link.poster.id) %></td>
+					<td> <%= link.time_stamp %><td/>
 				<tr>
 			<% end %>
 		<% end %>

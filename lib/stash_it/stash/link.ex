@@ -8,7 +8,7 @@ defmodule StashIt.Stash.Link do
     field :link_message, :string
     field :link_service_name, :string
     field :text_message, :string
-    field :time_stamp, :string
+    field :time_stamp, :naive_datetime
     belongs_to :poster, StashIt.Stash.User
     belongs_to :channel, StashIt.Stash.Channel
     timestamps()
